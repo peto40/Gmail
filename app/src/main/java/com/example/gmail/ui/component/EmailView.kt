@@ -22,7 +22,7 @@ fun EmailView(
     ) {
         Icon(
             modifier = Modifier
-                .size(58.dp)
+                .size(64.dp)
                 .padding(all = 4.dp),
             imageVector = email.userImage,
             contentDescription = ""

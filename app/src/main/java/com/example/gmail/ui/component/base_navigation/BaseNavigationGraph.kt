@@ -1,5 +1,6 @@
 package com.example.gmail.ui.component.base_navigation
 
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -15,6 +16,7 @@ import com.example.gmail.ui.screens.meeting_screen.MeetingScreen
 fun BottomNavigationGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController,
+    lazyListState: LazyListState,
     onOpenDrawer: () -> Unit,
 ) {
     NavHost(navController, startDestination = BaseNavigationRoute.SignIn.screen_route) {
@@ -23,7 +25,7 @@ fun BottomNavigationGraph(
             SignInScreen(navController = navController)
         }
         composable(route = BaseNavigationRoute.Home.screen_route) {
-            HomeScreen(onOpenDrawer = onOpenDrawer, navController = navController)
+            HomeScreen(onOpenDrawer = onOpenDrawer, lazyListState = lazyListState)
         }
         composable(BaseNavigationRoute.Meeting.screen_route) {
             MeetingScreen()

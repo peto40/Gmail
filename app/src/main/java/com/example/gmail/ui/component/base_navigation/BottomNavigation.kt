@@ -1,6 +1,5 @@
 package com.example.gmail.ui.component.base_navigation
 
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
@@ -17,6 +16,7 @@ import com.example.gmail.ui.theme.GmailThemeColors
 
 @Composable
 fun BottomNavigation(
+    modifier: Modifier = Modifier,
     navController: NavController,
 ) {
     val items = listOf(
@@ -24,7 +24,7 @@ fun BottomNavigation(
         BaseNavigationRoute.Meeting,
     )
     BottomNavigation(
-        modifier = Modifier.height(64.dp),
+        modifier = modifier,
         backgroundColor = GmailThemeColors.onSecondary,
         contentColor = GmailThemeColors.onSurface
     ) {

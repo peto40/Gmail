@@ -41,4 +41,88 @@ val emailList = listOf(
         emailPreview = "Hey there a third_party OAuth application",
         favorite = false
     ),
+    EmailModel(
+        userImage = Icons.Default.AccountCircle,
+        userName = "GitHub",
+        emailTitle = "A third_party OAuth application",
+        emailPreview = "Hey there a third_party OAuth application",
+        favorite = false
+    ),
+    EmailModel(
+        userImage = Icons.Default.AccountCircle,
+        userName = "GitHub",
+        emailTitle = "A third_party OAuth application",
+        emailPreview = "Hey there a third_party OAuth application",
+        favorite = false
+    ),
+    EmailModel(
+        userImage = Icons.Default.AccountCircle,
+        userName = "GitHub",
+        emailTitle = "A third_party OAuth application",
+        emailPreview = "Hey there a third_party OAuth application",
+        favorite = false
+    ),
+    EmailModel(
+        userImage = Icons.Default.AccountCircle,
+        userName = "GitHub",
+        emailTitle = "A third_party OAuth application",
+        emailPreview = "Hey there a third_party OAuth application",
+        favorite = false
+    ),
+    EmailModel(
+        userImage = Icons.Default.AccountCircle,
+        userName = "GitHub",
+        emailTitle = "A third_party OAuth application",
+        emailPreview = "Hey there a third_party OAuth application",
+        favorite = false
+    ),
+    EmailModel(
+        userImage = Icons.Default.AccountCircle,
+        userName = "GitHub",
+        emailTitle = "A third_party OAuth application",
+        emailPreview = "Hey there a third_party OAuth application",
+        favorite = false
+    ),
+    EmailModel(
+        userImage = Icons.Default.AccountCircle,
+        userName = "GitHub",
+        emailTitle = "A third_party OAuth application",
+        emailPreview = "Hey there a third_party OAuth application",
+        favorite = false
+    ),
+    EmailModel(
+        userImage = Icons.Default.AccountCircle,
+        userName = "GitHub",
+        emailTitle = "A third_party OAuth application",
+        emailPreview = "Hey there a third_party OAuth application",
+        favorite = false
+    ),
+    EmailModel(
+        userImage = Icons.Default.AccountCircle,
+        userName = "GitHub",
+        emailTitle = "A third_party OAuth application",
+        emailPreview = "Hey there a third_party OAuth application",
+        favorite = false
+    ),
+    EmailModel(
+        userImage = Icons.Default.AccountCircle,
+        userName = "GitHub",
+        emailTitle = "A third_party OAuth application",
+        emailPreview = "Hey there a third_party OAuth application",
+        favorite = false
+    ),
+    EmailModel(
+        userImage = Icons.Default.AccountCircle,
+        userName = "GitHub",
+        emailTitle = "A third_party OAuth application",
+        emailPreview = "Hey there a third_party OAuth application",
+        favorite = false
+    ),
+    EmailModel(
+        userImage = Icons.Default.AccountCircle,
+        userName = "GitHub",
+        emailTitle = "A third_party OAuth application",
+        emailPreview = "Hey there a third_party OAuth application",
+        favorite = false
+    ),
 )

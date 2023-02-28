@@ -2,6 +2,7 @@ package com.example.gmail.ui.screens.base
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.Scaffold
 import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
@@ -10,19 +11,22 @@ import androidx.compose.material.icons.filled.Phone
 import androidx.compose.material.icons.filled.Send
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Warning
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.input.nestedscroll.NestedScrollConnection
+import androidx.compose.ui.input.nestedscroll.NestedScrollSource
+import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.gmail.R
-import com.example.gmail.ui.component.ComposeEmailButton
+import com.example.gmail.ui.component.ComposeEmailFab
 import com.example.gmail.ui.component.base_navigation.BaseNavigationRoute
 import com.example.gmail.ui.component.base_navigation.BottomNavigation
 import com.example.gmail.ui.component.base_navigation.BottomNavigationGraph
@@ -30,6 +34,8 @@ import com.example.gmail.ui.component.drawer.NavigationDrawer
 import com.example.gmail.ui.component.drawer.NavigationDrawerItem
 import com.example.gmail.ui.theme.GmailThemeColors
 import com.example.gmail.ui.theme.GmailTypography
+import com.example.gmail.ui.util.isScrollingUp
+import kotlin.math.roundToInt
 
 @Composable
 fun Base(
@@ -42,8 +48,12 @@ fun Base(
     onSpamClick: () -> Unit,
 ) {
     var showBottomBar by rememberSaveable { mutableStateOf(true) }
+
     var showFab by rememberSaveable { mutableStateOf(true) }
+
     val navBackStackEntry by navController.currentBackStackEntryAsState()
+
+    val lazyListState = rememberLazyListState()
 
     showBottomBar = when (navBackStackEntry?.destination?.route) {
         BaseNavigationRoute.Home.screen_route -> true
@@ -55,7 +65,28 @@ fun Base(
         else -> false
     }
 
-    Scaffold(scaffoldState = scaffoldState, drawerShape = RectangleShape, drawerContent = {
+    val bottomBarHeight = 64.dp
+    val bottomBarHeightPx = with(LocalDensity.current) { bottomBarHeight.roundToPx().toFloat() }
+    val bottomBarOffsetHeightPx = remember { mutableStateOf(0f) }
+
+    val nestedScrollConnection = remember {
+        object : NestedScrollConnection {
+            override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+
+                val delta = available.y
+                val newOffset = bottomBarOffsetHeightPx.value + delta
+                bottomBarOffsetHeightPx.value = newOffset.coerceIn(-bottomBarHeightPx, 0f)
+
+                return Offset.Zero
+            }
+        }
+    }
+
+    Scaffold(
+        modifier = Modifier.nestedScroll(nestedScrollConnection),
+        scaffoldState = scaffoldState,
+        drawerShape = RectangleShape,
+        drawerContent = {
         NavigationDrawer(header = {
             Column {
                 Text(
@@ -109,19 +140,30 @@ fun Base(
             )
         })
     }, floatingActionButton = {
-        if (showFab) ComposeEmailButton {
+        if (showFab) ComposeEmailFab(extended = lazyListState.isScrollingUp()) {
             navController.navigate(BaseNavigationRoute.ComposeEmail.screen_route)
         }
 
 
     }, bottomBar = {
-        if (showBottomBar) BottomNavigation(navController = navController)
+        if (showBottomBar) BottomNavigation(
+            navController = navController,
+            modifier = Modifier
+                .height(bottomBarHeight)
+                .offset { IntOffset(x = 0, y = -bottomBarOffsetHeightPx.value.roundToInt())}
+        )
 
     }) { innerPadding ->
         BottomNavigationGraph(
             modifier = Modifier.padding(innerPadding),
             navController = navController,
-            onOpenDrawer = onOpenDrawer
+            onOpenDrawer = onOpenDrawer,
+            lazyListState = lazyListState
         )
     }
 }
+
+
+
+
+
